@@ -1,0 +1,85 @@
+<mat-card style="padding: 30px; width: 80%; margin: 0 auto;" >
+<div style="text-align: center;">
+  <form [formGroup]="formGroup" class="form"> 
+    <mat-form-field class="example-full-width" >
+      <mat-label>Document number</mat-label>
+      <input type="text" matInput formControlName="docNumber"    >
+    </mat-form-field>
+
+    <mat-form-field style="padding: 10px;" >
+      <mat-label>Currency</mat-label>
+      <mat-select  formControlName="currencyCode"  >
+        <mat-option *ngFor="let currency of currencys" [value]="currency.currencyCode">
+          {{currency.currencyDesc}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" >
+      <mat-label  >Start Date </mat-label>
+      <input type="date" matInput formControlName="firstDate"   >
+    </mat-form-field>
+
+    <mat-form-field style="padding: 10px;" class="example-full-width" >
+      <mat-label >End Date</mat-label>
+      <input type="date" matInput formControlName="secondDate">
+    </mat-form-field>
+  </form>
+</div>
+<br />
+<div style="margin: 0 auto; text-align: center;">
+
+  <button mat-raised-button (click)="loadDataSource()" color="primary">Search</button>
+  
+  <button mat-raised-button style="margin-left: 5px;" (click)="clear()" color="warn">clear</button>
+</div>
+
+</mat-card>
+
+<br />
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="documentNumber">
+      <th mat-header-cell *matHeaderCellDef> Document Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.documentNumber}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="documentDate">
+      <th mat-header-cell *matHeaderCellDef> Document Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.documentDate }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="currencyCode">
+      <th mat-header-cell *matHeaderCellDef> Currency Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.currencyCode}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="currencyDesc">
+      <th mat-header-cell *matHeaderCellDef> Currency Desc </th>
+      <td mat-cell *matCellDef="let element"> {{element.currencyDesc}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="documentValue">
+        <th mat-header-cell *matHeaderCellDef> Document Value </th>
+        <td mat-cell *matCellDef="let element"> {{element.documentValue}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valueUSD">
+        <th mat-header-cell *matHeaderCellDef> Value USD </th>
+        <td mat-cell *matCellDef="let element"> {{element.valueUSD | number:'.2'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valuePEN">
+        <th mat-header-cell *matHeaderCellDef> Value PEN </th>
+        <td mat-cell *matCellDef="let element"> {{element.valuePEN | number:'.2'}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="valueBRL">
+        <th mat-header-cell *matHeaderCellDef>  Value BRL </th>
+        <td mat-cell *matCellDef="let element"> {{element.valueBRL | number:'.2'}} </td>
+      </ng-container>
+     
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
